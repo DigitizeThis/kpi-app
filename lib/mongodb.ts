@@ -1,4 +1,12 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
+import dotenv from "dotenv";
+
+//const MONGO_USERNAME = process.env.MONGO_USERNAME || "";
+//const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "";
+//const MONGODB_URI = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@clusterkpi.zdudy6c.mongodb.net/`;
+//const PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 1337;
+
+dotenv.config();
 
 if (!process.env.MONGODB_URI) {
   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
