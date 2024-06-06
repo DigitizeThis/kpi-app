@@ -18,7 +18,7 @@ export default function Layouts({ kpis }: KpisPropsAll) {
                 <h1 className="container mx-auto justify-center m-0 leading-normal text-6xl text-center relative inline-grid grid-cols-1 grid-rows-1 gap-12 overflow-hidden">
                     <span className="animate-word-delay-1 col-span-full row-span-full">Library</span>
                 </h1>
-                <MainLayout />
+                <MainLayout kpis={kpis!} title="Layouts" abstract="Layout preview tips from the week" />
                 <section className="flex flex-row flex-wrap my-10 mx-0 justify-left">
                     <div className="w-full">
                         <h2 className="text-4xl text-left">Layouts</h2>

@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import { WithId } from "mongodb";
 import clientPromise from "../lib/mongodb";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import Header from "../app/Components/Elements/Header";
@@ -11,6 +12,7 @@ import "../styles/globals.css";
 
 type ConnectionStatus = {
 	isConnected: boolean;
+	kpis?: WithId<Document>[] | undefined;
 };
 
 export const ThemeClient = ({ children }: React.PropsWithChildren<{}>) => {
@@ -26,6 +28,16 @@ export const getServerSideProps: GetServerSideProps<
 > = async () => {
 	try {
 		await clientPromise;
+		const client = await clientPromise;
+		const db = client.db("sample_kpi");
+
+		const kpis = await db
+			.collection("kpis")
+			.find({})
+			.sort({ isTrending: -1 })
+			.limit(1000)
+			.toArray();
+
 		// `await clientPromise` will use the default database passed in the MONGODB_URI
 		// However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
 		//
@@ -36,18 +48,19 @@ export const getServerSideProps: GetServerSideProps<
 		// db.find({}) or any of the MongoDB Node Driver commands
 
 		return {
-			props: { isConnected: true },
+			props: { isConnected: true, kpis: JSON.parse(JSON.stringify(kpis)) }
 		};
 	} catch (e) {
 		console.error(e);
 		return {
-			props: { isConnected: false },
+			props: { isConnected: false, kpis: [] },
 		};
 	}
 };
 
 export default function Home({
 	isConnected,
+	kpis
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	return (
 		<ThemeClient>
@@ -65,7 +78,7 @@ export default function Home({
 								<small className="pt-20 text-2xl leading-normal text-center animate-word col-span-full row-span-full transition-opacity duration-700 ease-out opacity-0.5">You are connected to MongoDB</small>
 								<span className="animate-word-delay-1 col-span-full row-span-full">Library</span>
 							</h1>
-							<MainLayout />
+							<MainLayout kpis={kpis!} title="Featured" abstract="Curated Top Picks from this week" />
 						</>
 					) : (
 						<h2 className="text-2xl leading-normal text-center">

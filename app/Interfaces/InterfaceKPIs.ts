@@ -21,7 +21,7 @@ export interface Metrics {
 }
 
 export interface KpiProps {
-    _id?: string | number | undefined;
+    _id?: string;
     title?: string;
     metrics?: Metrics[];
     description?: string;
@@ -34,7 +34,7 @@ export interface KpiProps {
 }
 
 export interface KpiPropsFeatured {
-    _id?: ObjectId;
+    _id?: ObjectId | string | number;
     title?: string;
     metrics?: Metrics[];
     description?: string;

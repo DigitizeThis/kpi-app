@@ -24,7 +24,7 @@ export default function Featured({ kpis }: Partial<KpisPropsAll> ) {
                 <h1 className="container mx-auto justify-center m-0 leading-normal text-6xl text-center relative inline-grid grid-cols-1 grid-rows-1 gap-12 overflow-hidden">
                     <span className="animate-word-delay-1 col-span-full row-span-full">Library</span>
                 </h1>
-                <MainLayout />
+                <MainLayout kpis={kpis!} title="Featured" abstract="Curated Top Picks from this week" />
                 <section className="flex flex-row flex-wrap my-10 mx-0 justify-left">
                     <div className="w-full">
                         <h2 className="text-4xl text-left">Featured</h2>
@@ -118,11 +118,10 @@ export default function Featured({ kpis }: Partial<KpisPropsAll> ) {
             <form>
                 <Modal show={showModal} width="w-3/5">
                     <Modal.Header>
-                        <h1 className="text-3xl text-center">Intes</h1>
+                        <p className="text-4xl text-center">Intes</p>
                         <p className="text-sm font-light text-center">Those options are already baked in with this model shoot me an email clear blue water but we need distributors to evangelize the new line to local markets</p>
                     </Modal.Header>
-                    <Modal.Body>
-                        
+                    <Modal.Body>                        
                         <div className="relative m-0 w-full h-full shrink-0 flex justify-center overflow-hidden rounded-md bg-gray-200 bg-clip-border text-gray-700">
                             <h3 className="textbase text-black my-8 h-96">Charts Here...</h3>
                         </div>

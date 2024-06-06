@@ -29,8 +29,7 @@ const NavSelector: React.FC = () => {
 
     const navigate = useRouter();
     return (
-        <section className="flex items-center justify-around px-4 py-2">
-            
+        <section className="flex items-center justify-around px-4 py-2">            
             <div className="flex sm:hidden">
                 <button onClick={() => { setIsMenuOpen(!isMenuOpen); }} className='text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500'>
                     <Bars3Icon className='h-5 w-5' />
@@ -42,7 +41,7 @@ const NavSelector: React.FC = () => {
                 <PillSelector
                     options={pillOptions}
                     selectedValue={selectedPill}
-                    onChange={(key) => {                        
+                    onChange={(key) => {
                         (navigate.push(`/${key}`));
                         selectPill(key);
                     }}
