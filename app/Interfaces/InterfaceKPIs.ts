@@ -53,3 +53,7 @@ export interface KpiPropsFeaturedAll {
 export interface KpisPropsAll {
    kpis: KpiProps[];
 }
+
+export interface AppStateContextProps {
+    state: KpiPropsFeaturedAll;
+}

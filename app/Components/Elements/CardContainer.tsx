@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import Link from "next/link";
 import { Card } from "../../Components/Elements/Card";
 import { ClockIcon } from "@heroicons/react/24/outline";
@@ -9,7 +9,7 @@ interface CardContainerProps {
     date: Date;
     photo?: string;
     link?: string;
-    onShowModal: (e: Event) => void;
+    onShowModal: (e: any) => {};
 }
 
 function dateFormatter(timestamp: Date) {
@@ -17,16 +17,31 @@ function dateFormatter(timestamp: Date) {
     return dateObj.toDateString();
 }
 
-const CardContainer: React.FC<CardContainerProps> = (props: CardContainerProps) => {
+const CardContainer = forwardRef(function CardContainer(props: CardContainerProps, ref) {
+    const linkRef = useRef<HTMLAnchorElement>(null);
     const { title, description, date, link, onShowModal } = props;
+
+    useImperativeHandle(ref, () => {
+        return {
+            click() {
+                linkRef.current?.click();
+            }
+        };
+    }, []);
+    
+    useEffect(() => {
+        if (!linkRef.current) return;
+    }, []);
+    
     return (        
         <Card>
             <Link
-                className="pointer-events-none flex flex-row flex-wrap place-items-center lg:pointer-events-auto lg:p-0"
+                className="cardLink pointer-events-none flex flex-row flex-wrap place-items-center lg:pointer-events-auto lg:p-0"
                 href={link!}
                 target="_self"
                 rel="noopener noreferrer"
-                onClick={() => onShowModal}
+                onClick={(e) => onShowModal(e)}
+                ref={linkRef}
             >
                 <div className="relative m-0 w-2/5 h-full shrink-0 flex justify-center overflow-hidden rounded-md bg-gray-200 bg-clip-border text-gray-700">
                     <ClockIcon
@@ -46,9 +61,8 @@ const CardContainer: React.FC<CardContainerProps> = (props: CardContainerProps) 
                     </p>
                 </div>
             </Link>
-        </Card>
-        
+        </Card>        
     );
-};
+});
 
 export default CardContainer;

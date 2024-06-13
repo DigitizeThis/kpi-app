@@ -1,39 +1,36 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { KpisPropsAll, KpiPropsFeatured, KpiPropsFeaturedAll} from "../../../Interfaces/InterfaceKPIs";
+import React, { useEffect, useState, useRef } from "react";
+import { KpiPropsFeatured, KpiPropsFeaturedAll} from "../../../Interfaces/InterfaceKPIs";
 import { SectionProps } from "../../../Interfaces/InterfaceSectionProps";
 import CardContainer from "../../Elements/CardContainer";
 import { Button } from "../../../Components/Buttons/Button";
 import Modal from "../../../Components/Elements/Modal/Modal";
 import KpiDetail from "../../../Components/Layout/KpiDetail";
-import SectionHeader from "../../../Components/Layout/Sections/SectionHeader"
+import SectionHeader from "../../../Components/Layout/Sections/SectionHeader";
 
 const CardsFeatured: React.FC<KpiPropsFeaturedAll & SectionProps> = ({ kpis, title, abstract }: KpiPropsFeaturedAll & SectionProps) => {
     const [dataKpi, setDataKpi] = useState<KpiPropsFeatured[]>([]);
     const [showModal, setShowModal] = useState<boolean>(false);
 
+    const ref = useRef<HTMLElement | null>(null);
+
     useEffect(() => {
         const mainData = kpis;
         setDataKpi(mainData);
-        console.log('Is called...', showModal);
-        //window.addEventListener('click', onModalHandler);
-        //return () => window.removeEventListener('click', onModalHandler);
-    }, [dataKpi, showModal]);
-
-    const onModalHandler = (e: Event) => {
-        const showTheModal = !showModal;
-        setShowModal(showTheModal);
-        
-        return showTheModal;
-    };
+    }, [dataKpi]);
 
     const handleModalClose = () => {
         setShowModal(false);
     };
- 
-    const handleModalOpen = (e: Event) => {
+
+    const handleModalOpen = (e: MouseEvent) => {
         e.stopPropagation();
-        setShowModal(!showModal);
-        console.log('Triggered...', showModal);        
+        if (ref && ref?.current) {
+            console.log('Event status...', ref?.current);
+            ref?.current?.click();
+            const nextModalActive = !showModal;
+            setShowModal(nextModalActive);
+        }
+        return showModal;
     };
     
     return (
@@ -48,7 +45,9 @@ const CardsFeatured: React.FC<KpiPropsFeaturedAll & SectionProps> = ({ kpis, tit
                                 description={kpi.description!}
                                 date={kpi.date!}
                                 link={""}
-                                onShowModal={handleModalOpen}>
+                                onShowModal={(e) => handleModalOpen(e)}
+                                ref={ref}
+                            >
                             </CardContainer>
                         </React.Fragment>
                     ))}
