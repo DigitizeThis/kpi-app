@@ -3,13 +3,14 @@ import React, { Suspense, useState, useEffect } from 'react';
 // import { GetStaticProps } from "next";
 import { Card } from "../Elements/Card";
 import { fetchKpis } from "../../Server/Actions/KpiActions";
-import { KpisPropsAll, KpiPropsFeaturedAll,} from "../../Interfaces/InterfaceKPIs";
+import { AppState } from "../../Interfaces/InterfaceKPIs";
 import { SectionProps } from "../../Interfaces/InterfaceSectionProps";
 import { ILibrary } from "../../Interfaces/InterfaceKPIServiceLibrary";
 import NavSelector from "../Layout/NavSelector";
 import Pagination from '../Elements/Pagination';
 import { SearchBarHeader } from "../Layout/SearchBarHeader";
 import CardsFeatured from "@/app/Components/Layout/Sections/CardsFeatured";
+import "@/styles/globals.css";
 
 type ISearchQuery = {
   page: string;
@@ -18,7 +19,7 @@ type LayoutProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export const MainLayout: React.FC<KpiPropsFeaturedAll & SectionProps> = ({ kpis, title, abstract }: KpiPropsFeaturedAll & SectionProps) => {
+export const MainLayout: React.FC<AppState & SectionProps> = ({ appData, title, abstract }: AppState & SectionProps) => {
     const [allData, setAllData] = useState<ILibrary[]>([]);
     const [totalCountItem, setTotalCountItem] = useState<number>(0);
     const [showAllData, setShowAllData] = useState(false);
@@ -36,13 +37,13 @@ export const MainLayout: React.FC<KpiPropsFeaturedAll & SectionProps> = ({ kpis,
     return (
         <>  
             <h3 className="text-base text-center">Browse for assets needed to report and present analysis</h3>
-            <SearchBarHeader
+            {/* <SearchBarHeader
                 //fetchData={fetchData}
                 // setResult={setResult}
                 suggestionKey="title"
-            />
+            /> */}
             <NavSelector />
-            <CardsFeatured kpis={kpis} title={title} abstract={abstract} />
+            <CardsFeatured appData={appData} title={title} abstract={abstract} />
             {/* <Suspense fallback={<h6 className='text-center ltr'>📡 Loading data please wait ... </h6>}>
                 {allData?.length ?
                     <>
@@ -62,7 +63,7 @@ export const MainLayout: React.FC<KpiPropsFeaturedAll & SectionProps> = ({ kpis,
     )
 };
 
-// export const getStaticProps: GetStaticProps<KpiPropsFeaturedAll> = async () => {
+// export const getStaticProps: GetStaticProps<AppState> = async () => {
 //     try {
 //         const client = await clientPromise;
 //         const db = client.db("sample_kpi");

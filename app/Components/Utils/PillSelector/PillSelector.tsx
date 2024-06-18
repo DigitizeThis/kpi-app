@@ -1,5 +1,5 @@
 import React from 'react';
-import { PillSelectorProps } from '../../../Interfaces/InterfaceToggleSwitchProps';
+import { PillSelectorProps } from '@/app/Interfaces/InterfaceToggleSwitchProps';
 
 const selectedClassName =
     'inline-flex bg-white rounded-lg py-2 px-3 md:px-3 border border-gray-200 w-35 md:w-40 text-center justify-center text-sm ';

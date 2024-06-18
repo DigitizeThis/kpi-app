@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MainLayout } from "../../app/Components/Layout/MainLayout";
-import { KpisPropsAll, KpiPropsFeaturedAll} from "../../app/Interfaces/InterfaceKPIs";
+import { AppState } from "../../app/Interfaces/InterfaceKPIs";
 
 export async function getServerSideProps() {
 	try {

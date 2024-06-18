@@ -2,12 +2,12 @@ import clientPromise from "../lib/mongodb";
 import { WithId } from "mongodb";
 import React from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
-import RootLayout from "../app/Components/Layout/RootLayout";
-import "../styles/globals.css";
+import RootLayout from "@/app/Components/Layout/RootLayout";
+import "@/styles/globals.css";
 
 export type ConnectionStatus = {
 	isConnected: boolean;
-	kpis?: WithId<Document>[] | undefined;
+	appData?: WithId<Document>[] | undefined;
 };
 
 export const getServerSideProps: GetServerSideProps<
@@ -18,10 +18,10 @@ export const getServerSideProps: GetServerSideProps<
 		const client = await clientPromise;
 		const db = client.db("sample_kpi");
 
-		const kpis = await db
+		const appData = await db
 			.collection("kpis")
 			.find({})
-			.sort({ isTrending: -1 })
+			.sort({ _id: 1 })
 			.limit(1000)
 			.toArray();
 
@@ -35,21 +35,21 @@ export const getServerSideProps: GetServerSideProps<
 		// db.find({}) or any of the MongoDB Node Driver commands
 
 		return {
-			props: { isConnected: true, kpis: JSON.parse(JSON.stringify(kpis)) }
+			props: { isConnected: true, appData: JSON.parse(JSON.stringify(appData)) }
 		};
 	} catch (e) {
 		console.error(e);
 		return {
-			props: { isConnected: false, kpis: [] },
+			props: { isConnected: false, appData: [] },
 		};
 	}
 };
 
 export default function Home({
 	isConnected,
-	kpis
+	appData
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	return (
-		<RootLayout isConnected={isConnected} kpis={kpis} />
+		<RootLayout isConnected={isConnected} appData={appData} />
 	);
 }

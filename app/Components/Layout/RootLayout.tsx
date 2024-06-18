@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Head from "next/head";
 import { ConnectionStatus } from "../../../pages/index";
@@ -6,12 +7,13 @@ import Header from "../../../app/Components/Elements/Header";
 import Footer from "../../../app/Components/Elements/Footer";
 import Container from "../../../app/Components/Elements/Container";
 import { MainLayout } from "../../../app/Components/Layout/MainLayout";
+import "@/styles/globals.css";
 
 const RootLayout: React.FC<ConnectionStatus> = (
-    { isConnected, kpis }: ConnectionStatus
+    { isConnected, appData }: ConnectionStatus
 ) => {
     return (
-        <AppStateProvider isConnected={false} kpis={kpis}>
+        <AppStateProvider isConnected={false} appData={appData}>
             <div className="container mx-auto flex flex-row flex-wrap px-2 justify-center items-center">
                 <Head>
                     <title>Create Next App</title>
@@ -26,15 +28,15 @@ const RootLayout: React.FC<ConnectionStatus> = (
                                 <small className="pt-20 text-2xl leading-normal text-center animate-word col-span-full row-span-full transition-opacity duration-700 ease-out opacity-0.5">You are connected to MongoDB</small>
                                 <span className="animate-word-delay-1 col-span-full row-span-full">Library</span>
                             </h1>
-                            <MainLayout kpis={kpis!} title="Featured" abstract="Curated Top Picks from this week" />
+                            <MainLayout appData={appData!} title="Featured" abstract="Curated Top Picks from this week" />
                         </>
                     ) : (
                         <h2 className="text-2xl leading-normal text-center">
                             You are NOT connected to MongoDB. Check the <code>README.md</code>{" "}
                             for instructions.
                         </h2>
-                    )}			
-                </Container>				
+                    )}
+                </Container>
                 <Footer />
 
                 <style jsx>{`

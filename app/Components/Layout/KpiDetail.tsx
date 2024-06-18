@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 // import parse from "@leafwell/html-react-parser";
 import { HeartIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import { KpiProps } from "../../Interfaces/InterfaceKPIs";
+import { KpiPropsFeatured } from "../../Interfaces/InterfaceKPIs";
 
-const KpiDetail = (props: KpiProps) => {
+const KpiDetail = (props: KpiPropsFeatured) => {
     
     const [favourites, setFavourites] = useState(JSON.parse(localStorage.getItem('favourites') || '{}') || []);
     const [isFavourite, setIsFavourite] = useState(false);

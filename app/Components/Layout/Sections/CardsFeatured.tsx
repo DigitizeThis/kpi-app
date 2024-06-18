@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { KpiPropsFeatured, KpiPropsFeaturedAll} from "../../../Interfaces/InterfaceKPIs";
+import { KpiPropsFeatured, AppState} from "../../../Interfaces/InterfaceKPIs";
 import { SectionProps } from "../../../Interfaces/InterfaceSectionProps";
 import CardContainer from "../../Elements/CardContainer";
 import { Button } from "../../../Components/Buttons/Button";
@@ -7,14 +7,14 @@ import Modal from "../../../Components/Elements/Modal/Modal";
 import KpiDetail from "../../../Components/Layout/KpiDetail";
 import SectionHeader from "../../../Components/Layout/Sections/SectionHeader";
 
-const CardsFeatured: React.FC<KpiPropsFeaturedAll & SectionProps> = ({ kpis, title, abstract }: KpiPropsFeaturedAll & SectionProps) => {
+const CardsFeatured: React.FC<AppState & SectionProps> = ({ appData, title, abstract }: AppState & SectionProps) => {
     const [dataKpi, setDataKpi] = useState<KpiPropsFeatured[]>([]);
     const [showModal, setShowModal] = useState<boolean>(false);
 
     const ref = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
-        const mainData = kpis;
+        const mainData = appData;
         setDataKpi(mainData);
     }, [dataKpi]);
 
@@ -25,7 +25,6 @@ const CardsFeatured: React.FC<KpiPropsFeaturedAll & SectionProps> = ({ kpis, tit
     const handleModalOpen = (e: MouseEvent) => {
         e.stopPropagation();
         if (ref && ref?.current) {
-            console.log('Event status...', ref?.current);
             ref?.current?.click();
             const nextModalActive = !showModal;
             setShowModal(nextModalActive);

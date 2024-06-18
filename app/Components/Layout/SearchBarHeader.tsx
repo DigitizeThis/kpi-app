@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, FormEvent } from "react";
-import { KpiProps} from "../../../app/Interfaces/InterfaceKPIs";
+import { KpiPropsFeatured} from "../../../app/Interfaces/InterfaceKPIs";
 import {useRouter  } from "next/router";
 import { useDebounce } from "../Utils/Hooks/useDebounce";
 import { SearchProps } from "../../Interfaces/InterfaceSearchProps";
@@ -9,7 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 export const SearchBarHeader: React.FC<SearchProps> = ({ fetchData, setResult, suggestionKey }: SearchProps) => {   
     
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [autoComplete, setAutoComplete] = useState<KpiProps[]>([]);
+    const [autoComplete, setAutoComplete] = useState<KpiPropsFeatured[]>([]);
     const [hideSuggestions, setHideSuggestions] = useState<boolean>(true);
     
     const ref = useRef<HTMLUListElement>(null);
@@ -97,7 +97,7 @@ export const SearchBarHeader: React.FC<SearchProps> = ({ fetchData, setResult, s
                         >
                             {autoComplete.map((kpi, i) => (
                                 <li
-                                    key={i.toString()&& kpi._id}
+                                    key={kpi._id!.toString()}
                                     className="px-4 py-2 text-indigo-700 hover:bg-indigo-500 hover:text-white cursor-pointer"
                                     // onClick={() => handleSelect(kpi!._id)}
                                     onClick={() => findResult(autoComplete[suggestionKey])}

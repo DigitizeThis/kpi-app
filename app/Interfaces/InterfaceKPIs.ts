@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import { Action } from "@/app/Interfaces/TypesActions";
 
 export interface QuestionsProps {
     _id: string;
@@ -20,40 +21,24 @@ export interface Metrics {
     format: FormatProps;
 }
 
-export interface KpiProps {
-    _id?: string;
-    title?: string;
-    metrics?: Metrics[];
-    description?: string;
-    date?: Date;
-    questions?: Array<QuestionsProps>;
-    isVisual?: boolean;
-    isFavourite?: boolean;
-    isTrending?: boolean;
-    isFeatured?: boolean;
-}
-
 export interface KpiPropsFeatured {
     _id?: ObjectId | string | number;
     title?: string;
     metrics?: Metrics[];
     description?: string;
     date?: Date;
-    questions?: Array<QuestionsProps>;
+    questions?: QuestionsProps[];
     isVisual?: boolean;
     isFavourite?: boolean;
-    isTrending?: boolean;
+    isTrending?: boolean | string;
     isFeatured?: boolean;
 }
 
-export interface KpiPropsFeaturedAll {
-    kpis: KpiPropsFeatured[];
-}
-
-export interface KpisPropsAll {
-   kpis: KpiProps[];
+export interface AppState {
+    appData: KpiPropsFeatured[];
 }
 
 export interface AppStateContextProps {
-    state: KpiPropsFeaturedAll;
+    state: AppState;
+    dispatch: React.Dispatch<Action>;
 }

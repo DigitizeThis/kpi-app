@@ -1,10 +1,10 @@
 'use client';
 import React from "react";
-import { SunIcon, StarIcon } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
+import { SunIcon, StarIcon } from "@heroicons/react/24/outline";
+
  export const ThemeButton: React.FC = () => {
     const { theme, setTheme } = useTheme();
-    
     return (       
         <div className="h-7 w-7 flex justify-center rounded-full md:p-0 ml-2 bg-gray-800">
             <button

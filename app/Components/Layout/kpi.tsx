@@ -1,9 +1,9 @@
 import React from "react";
-import { KpiProps, KpisPropsAll } from "../../../app/Interfaces/InterfaceKPIs";
+import { KpiPropsFeatured } from "../../../app/Interfaces/InterfaceKPIs";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-const Kpi = (props: KpiProps) => {
+const Kpi = (props: KpiPropsFeatured) => {
     return (
         <Link
             className="pointer-events-none flex flex-row flex-wrap place-items-center lg:pointer-events-auto lg:p-0"

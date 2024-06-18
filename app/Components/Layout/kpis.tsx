@@ -1,17 +1,17 @@
 import React from "react";
 import Kpi from "./kpi";
-import { KpisPropsAll} from "../../../app/Interfaces/InterfaceKPIs";
+import { AppState} from "../../../app/Interfaces/InterfaceKPIs";
 import { Card } from "../../../app/Components/Elements/Card";
 
-const Kpis = ({kpis}: KpisPropsAll) => {
+const Kpis = ({appData}: AppState) => {
     return (
         <div>
-            {kpis && kpis.map((kpi, i) => {
+            {appData && appData.map((kpi, i) => {
                 console.log("DATA", kpi);
                 return (
                     <Card key={i.toString()}>
                         <Kpi
-                            key={kpi._id}
+                            key={i.toString()}
                             {...kpi}
                         />
                     </Card>
